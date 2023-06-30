@@ -59,7 +59,8 @@ def add_participation(
     team_code: str | None,
     hidden: bool,
     unrestricted: bool,
-    groupname: str
+    groupname: str,
+    delta: int,
 ):
     logger.info("Creating the user's participation in the database.")
     delay_time = delay_time if delay_time is not None else 0
@@ -112,7 +113,8 @@ def add_participation(
                 password=password,
                 team=team,
                 hidden=hidden,
-                unrestricted=unrestricted)
+                unrestricted=unrestricted,
+                delta=delta)
 
             session.add(participation)
             session.commit()
@@ -134,6 +136,8 @@ def main():
                         help="username to add to the contest")
     parser.add_argument("-c", "--contest-id", action="store", type=int,
                         help="id of the contest the users will be attached to")
+    parser.add_argument("--delta", action="store", type=int, required=True,
+                        help="participant's delta")
     parser.add_argument("-g", "--group", action="store", type=str,
                         help="name of the group the users will be attached to")
     parser.add_argument("-i", "--ip", action="store", type=utf8_decoder,

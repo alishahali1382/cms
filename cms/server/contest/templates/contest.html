@@ -166,6 +166,12 @@ $(document).ready(function () {
                         <span id="countdown_label"></span>
                         <span id="countdown"></span>
                     </h3>
+                    {% if actual_phase == 0 or actual_phase == 3 or participation.unrestricted %}
+                    <h3 id="delta_box">
+                      <span id="delta_label">Delta:</span>
+                      <span>{{ participation.delta }}</span>
+                    </h3>
+                    {% endif %}
                     <div class="well" style="padding: 8px 0;">
                         <ul class="nav nav-list">
 

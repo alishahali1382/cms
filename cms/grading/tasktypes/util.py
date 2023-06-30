@@ -280,7 +280,7 @@ def eval_output(
             if checker_codename in job.managers else None
         success, outcome, text, admin_text = checker_step(
             sandbox, file_cacher, checker_digest, job.input, job.output,
-            EVAL_USER_OUTPUT_FILENAME, extra_args)
+            EVAL_USER_OUTPUT_FILENAME, extra_args, delta=job.delta)
 
         delete_sandbox(sandbox, job, file_cacher, success)
         return success, outcome, text, admin_text

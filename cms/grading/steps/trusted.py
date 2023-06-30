@@ -215,7 +215,8 @@ def checker_step(
     input_digest: str,
     correct_output_digest: str,
     output_filename: str,
-    extra_args: list[str] | None = None
+    extra_args: list[str] | None = None,
+    delta: int = 0,
 ) -> tuple[bool, float | None, list[str] | None, str | None]:
     """Run the explicit checker given by the admins
 
@@ -264,7 +265,8 @@ def checker_step(
     command = ["./%s" % CHECKER_FILENAME,
                CHECKER_INPUT_FILENAME,
                CHECKER_CORRECT_OUTPUT_FILENAME,
-               output_filename] + (extra_args if extra_args is not None else [])
+               output_filename,
+               str(delta)] + (extra_args if extra_args is not None else [])
     box_success, success, unused_stats = trusted_step(sandbox, [command])
     if not box_success or not success:
         logger.error("Sandbox failed during checker step. "
