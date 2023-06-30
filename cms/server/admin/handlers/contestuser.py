@@ -219,6 +219,7 @@ class ParticipationHandler(BaseHandler):
 
             self.get_password(attrs, participation.password, True)
 
+            self.get_int(attrs, "delta")
             self.get_ip_networks(attrs, "ip")
             self.get_datetime(attrs, "starting_time")
             self.get_timedelta_sec(attrs, "delay_time")

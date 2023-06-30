@@ -448,7 +448,7 @@ class EvaluationJob(Job):
                  time_limit=None, memory_limit=None,
                  success=None, outcome=None, text=None,
                  user_output=None, plus=None,
-                 only_execution=False, get_output=False):
+                 only_execution=False, get_output=False, delta=0):
         """Initialization.
 
         See base class for the remaining arguments.
@@ -484,6 +484,7 @@ class EvaluationJob(Job):
         self.plus = plus
         self.only_execution = only_execution
         self.get_output = get_output
+        self.delta = delta
 
     def export_to_dict(self):
         res = Job.export_to_dict(self)
@@ -498,6 +499,7 @@ class EvaluationJob(Job):
             'plus': self.plus,
             'only_execution': self.only_execution,
             'get_output': self.get_output,
+            'delta': self.delta,
             })
         return res
 
@@ -545,7 +547,8 @@ class EvaluationJob(Job):
             output=testcase.output,
             time_limit=dataset.time_limit,
             memory_limit=dataset.memory_limit,
-            info=info
+            info=info,
+            delta=submission.participation.delta
         )
 
     def to_submission(self, sr):

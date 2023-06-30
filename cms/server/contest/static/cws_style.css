@@ -771,6 +771,18 @@ td.token_rules p:last-child {
     color: #999999;
 }
 
+/*** Delta */
+
+#delta_box {
+  text-align: center;
+  color: #333333;
+  margin: 0 0 8px;
+}
+
+#delta_label {
+  color: #999999;
+}
+
 /*** Server time */
 
 #server_time_box {

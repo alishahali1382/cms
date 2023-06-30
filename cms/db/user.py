@@ -152,6 +152,11 @@ class Participation(Base):
         Integer,
         primary_key=True)
 
+    delta = Column(
+        Integer,
+        nullable=False,
+        default=0)
+
     # If the IP lock is enabled the user can log into CWS only if their
     # requests come from an IP address that belongs to any of these
     # subnetworks. An empty list prevents the user from logging in,
