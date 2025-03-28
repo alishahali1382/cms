@@ -130,6 +130,13 @@ class ContestHandler(SimpleContestHandler("contest.html")):
             self.get_int(attrs, "score_precision")
 
             self.get_group_settings(contest.main_group)
+            # Parse deltas
+            raw_deltas = self.get_argument("deltas", "")
+            if raw_deltas:
+                attrs["deltas"] = [int(x) for x in raw_deltas.split("\n") if x.strip()]
+            else:
+                attrs["deltas"] = []
+
             # Update the contest.
             contest.set_attrs(attrs)
 

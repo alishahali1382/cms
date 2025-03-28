@@ -282,6 +282,12 @@ class Contest(Base):
         passive_deletes=True,
         back_populates="contest")
 
+    deltas = Column(
+        ARRAY(Integer),
+        nullable=False,
+        default=[]
+    )
+
 
 class Announcement(Base):
     """Class to store a messages sent by the contest managers to all
