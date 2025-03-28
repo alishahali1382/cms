@@ -32,6 +32,7 @@ import ipaddress
 import json
 import logging
 import os.path
+import random
 import re
 
 import collections
@@ -114,8 +115,18 @@ class RegistrationHandler(ContestHandler):
 
         # Create participation
         team = self._get_team()
-        participation = Participation(user=user, contest=self.contest,
-                                      team=team)
+        delta = 0
+        if self.contest.deltas:
+            # TODO: assign delta more clever. e.g. deltas[total_participants % len(deltas)]
+            delta = random.choice(self.contest.deltas)
+
+        participation = Participation(
+            user=user,
+            contest=self.contest,
+            team=team,
+            delta=delta
+        )
+
         self.sql_session.add(participation)
 
         self.sql_session.commit()

@@ -292,6 +292,12 @@ class Contest(Base):
         passive_deletes=True,
         back_populates="contest")
 
+    deltas = Column(
+        ARRAY(Integer),
+        nullable=False,
+        default=[]
+    )
+
     def phase(self, timestamp):
         """Return: -1 if contest isn't started yet at time timestamp,
                     0 if the contest is active at time timestamp,

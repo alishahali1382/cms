@@ -90,6 +90,15 @@
         <input type="checkbox" id="allow_unofficial_submission_before_analysis_mode" name="allow_unofficial_submission_before_analysis_mode" {{ "checked" if contest.allow_unofficial_submission_before_analysis_mode else "" }}/>
       </td>
     </tr>
+    <tr>
+      <td>
+      <span class="info" title="A list of possible delta values for participations. (each delta in a separate line)"></span>
+      Deltas
+      </td>
+      <td>
+        <textarea name="deltas" rows="5" style="width: 100%; overflow: auto;">{{ contest.deltas|join("\n") }}</textarea>
+      </td>
+    </tr>
 
     <tr><td colspan=2><h2>Logging in</h2></td></tr>
     <tr>

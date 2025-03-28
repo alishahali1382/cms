@@ -129,6 +129,13 @@ class ContestHandler(SimpleContestHandler("contest.html")):
             self.get_datetime(attrs, "analysis_start")
             self.get_datetime(attrs, "analysis_stop")
 
+            # Parse deltas
+            raw_deltas = self.get_argument("deltas", "")
+            if raw_deltas:
+                attrs["deltas"] = [int(x) for x in raw_deltas.split("\n") if x.strip()]
+            else:
+                attrs["deltas"] = []
+
             # Update the contest.
             contest.set_attrs(attrs)
 
