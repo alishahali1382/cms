@@ -211,9 +211,9 @@ class TpsTaskLoader(TaskLoader):
             args['score_precision'] = 2
         args['max_submission_number'] = 50
         args['max_user_test_number'] = 50
-        if data["task_type"] == 'OutputOnly':
-            args['max_submission_number'] = 100
-            args['max_user_test_number'] = 100
+        # if data["task_type"] == 'OutputOnly':
+        #     args['max_submission_number'] = 100
+        #     args['max_user_test_number'] = 100
 
         args['min_submission_interval'] = make_timedelta(60)
         args['min_user_test_interval'] = make_timedelta(60)
@@ -236,10 +236,10 @@ class TpsTaskLoader(TaskLoader):
         # Checker
         checker_dir = os.path.join(self.path, "checker")
         checker_src = os.path.join(checker_dir, "checker.cpp")
+        checker_exe = os.path.join(checker_dir, "checker")
 
         if os.path.exists(checker_src):
             logger.info("Checker found, compiling")
-            checker_exe = os.path.join(checker_dir, "checker")
             ret = subprocess.call([
                 "g++", "-x", "c++", "-std=gnu++17", "-O2", "-static",
                 "-o", checker_exe, checker_src
@@ -247,6 +247,8 @@ class TpsTaskLoader(TaskLoader):
             if ret != 0:
                 logger.critical("Could not compile checker")
                 return None
+        if os.path.exists(checker_exe):
+            logger.info("Importing Checker")
             digest = self.file_cacher.put_file_from_path(
                 checker_exe,
                 "Manager for task %s" % name)
