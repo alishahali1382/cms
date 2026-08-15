@@ -154,7 +154,7 @@ def main():
         args.plaintext_password or args.hashed_password,
         args.method or "plaintext",
         args.hashed_password is not None, args.team,
-        args.hidden, args.unrestricted)
+        args.hidden, args.unrestricted, args.delta)
     return 0 if success is True else 1
 
 
