@@ -163,8 +163,14 @@ $(document).ready(function() {
                     <div id="username-input" class="control-group">
                         <label class="control-label" for="username">{% trans %}Username{% endtrans %}</label>
                         <div class="controls">
-                            <input required minlength="1" maxlength="{{ MAX_INPUT_LENGTH }}" pattern="^[A-Za-z0-9_-]+$" type="text" class="input-xlarge" name="username" id="username">
-                            <span class="help-block"></span>
+                            <div class="input-prepend">
+                                <input required minlength="{{ USERNAME_PREFIX|length + 1 }}" maxlength="{{ MAX_INPUT_LENGTH }}" pattern="^{{ USERNAME_PREFIX }}[A-Za-z0-9_-]+$" type="text" class="input-xlarge" name="username" id="username" placeholder="{{ USERNAME_PREFIX }}..." autocomplete="username" value="{{ USERNAME_PREFIX }}">
+                            </div>
+                            <span class="help-block">
+                                {% trans prefix=USERNAME_PREFIX %}
+                                Username must start with "{{ prefix }}"
+                                {% endtrans %}
+                            </span>
                         </div>
                     </div>
                     <div id="password-input" class="control-group">
