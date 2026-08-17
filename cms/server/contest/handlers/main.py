@@ -89,6 +89,7 @@ class RegistrationHandler(ContestHandler):
 
     MAX_INPUT_LENGTH = 50
     MIN_PASSWORD_LENGTH = 6
+    USERNAME_PREFIX = "open-"
 
     @multi_contest
     def post(self):
@@ -139,6 +140,7 @@ class RegistrationHandler(ContestHandler):
 
         self.r_params["MAX_INPUT_LENGTH"] = self.MAX_INPUT_LENGTH
         self.r_params["MIN_PASSWORD_LENGTH"] = self.MIN_PASSWORD_LENGTH
+        self.r_params["USERNAME_PREFIX"] = self.USERNAME_PREFIX
         self.r_params["teams"] = self.sql_session.query(Team)\
                                      .order_by(Team.name).all()
 
@@ -148,7 +150,7 @@ class RegistrationHandler(ContestHandler):
         try:
             first_name = self.get_argument("first_name")
             last_name = self.get_argument("last_name")
-            username = self.get_argument("username")
+            username: str = self.get_argument("username")
             password = self.get_argument("password")
             email = self.get_argument("email")
             if len(email) == 0:
@@ -161,6 +163,8 @@ class RegistrationHandler(ContestHandler):
             if not 1 <= len(username) <= self.MAX_INPUT_LENGTH:
                 raise ValueError()
             if not re.match(r"^[A-Za-z0-9_-]+$", username):
+                raise ValueError()
+            if not username.startswith(self.USERNAME_PREFIX) or len(username) <= len(self.USERNAME_PREFIX):
                 raise ValueError()
             if not self.MIN_PASSWORD_LENGTH <= len(password) \
                     <= self.MAX_INPUT_LENGTH:
